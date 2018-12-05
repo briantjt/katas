@@ -26,18 +26,31 @@ describe("Game creation", () => {
   });
 });
 
-describe("Game scoring", () => {
+describe("Frame switching", () => {
   test("game switches to next frame after 2 rolls if no strike and not last frame", () => {
     game.roll(4);
     game.roll(4);
     expect(game.frameIndex).toBe(1);
   });
 
+  test("Game switches to next frame if there is a strike", () => {
+    game.roll(10);
+    expect(game.frameIndex).toBe(1);
+  });
+
+  test("Game switches to following frame is there are consecutive strikes", () => {
+    game.roll(10);
+    game.roll(10);
+    expect(game.frameIndex).toBe(2);
+  });
+
   test("game does not switch to next frame if it is the last frame", () => {
     rollMany(20, 0);
     expect(game.frameIndex).toBe(9);
   });
+});
 
+describe("Game scoring", () => {
   test("total gutter game returns score of 0", () => {
     rollMany(20, 0);
     expect(game.score).toBe(0);

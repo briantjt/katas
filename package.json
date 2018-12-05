@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/briantjt/katas/issues"
   },
-  "homepage": "https://github.com/briantjt/katas#readme"
+  "homepage": "https://github.com/briantjt/katas#readme",
+  "dependencies": {
+    "@types/jest": "^23.3.10"
+  }
 }
