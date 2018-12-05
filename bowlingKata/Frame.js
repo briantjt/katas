@@ -9,15 +9,15 @@ class Frame {
 
   get isComplete() {
     if (this.isLastFrame) {
-      if (this.isStrike() || this.isSpare()) {
+      if (this.isStrike || this.isSpare) {
         return this.rolls.length === 3;
       }
     }
-    if (this.isStrike()) return true;
+    if (this.isStrike) return true;
     return this.rolls.length === 2;
   }
 
-  isSpare() {
+  get isSpare() {
     return this.rolls[0] + this.rolls[1] === 10;
   }
 
@@ -29,7 +29,7 @@ class Frame {
     return this.nextFrame === undefined;
   }
 
-  isStrike() {
+  get isStrike() {
     return this.rolls[0] === 10;
   }
 
@@ -40,10 +40,10 @@ class Frame {
     if (this.isLastFrame) {
       return this.scoreFromFrameRolls;
     } else {
-      if (this.isSpare()) {
+      if (this.isSpare) {
         return this.scoreFromFrameRolls + this.nextFrame.rolls[0];
       }
-      if (this.isStrike()) {
+      if (this.isStrike) {
         return this.scoreFromFrameRolls + this.scoreFromNextTwoRolls;
       }
       return this.scoreFromFrameRolls;
@@ -54,7 +54,7 @@ class Frame {
     if (this.nextFrame.isLastFrame) {
       return this.nextFrame.rolls[0] + this.nextFrame.rolls[1];
     }
-    if (this.nextFrame.isStrike()) {
+    if (this.nextFrame.isStrike) {
       return this.nextFrame.rolls[0] + this.nextFrame.nextFrame.rolls[0];
     }
     return this.nextFrame.scoreFromFrameRolls;
