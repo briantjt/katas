@@ -43,26 +43,21 @@ class Frame {
       if (this.isSpare()) {
         return this.scoreFromFrameRolls + this.nextFrame.rolls[0];
       }
-
       if (this.isStrike()) {
-        if (this.nextFrame.isLastFrame) {
-          return (
-            this.scoreFromFrameRolls +
-            this.nextFrame.rolls[0] +
-            this.nextFrame.rolls[1]
-          );
-        }
-        if (this.nextFrame.isStrike()) {
-          return (
-            this.scoreFromFrameRolls +
-            this.nextFrame.rolls[0] +
-            this.nextFrame.nextFrame.rolls[0]
-          );
-        }
-        return this.scoreFromFrameRolls + this.nextFrame.scoreFromFrameRolls;
+        return this.scoreFromFrameRolls + this.scoreFromNextTwoRolls;
       }
       return this.scoreFromFrameRolls;
     }
+  }
+
+  get scoreFromNextTwoRolls() {
+    if (this.nextFrame.isLastFrame) {
+      return this.nextFrame.rolls[0] + this.nextFrame.rolls[1];
+    }
+    if (this.nextFrame.isStrike()) {
+      return this.nextFrame.rolls[0] + this.nextFrame.nextFrame.rolls[0];
+    }
+    return this.nextFrame.scoreFromFrameRolls;
   }
 }
 
